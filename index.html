@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Tareas</title>
+  <style>
+    /* Estilos básicos para mejorar la apariencia */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #433e4c;
+    }
+    h1, h2 {
+      color: #130606;
+    }
+    form {
+      margin: 20px 0;
+    }
+    label {
+      margin-right: 10px;
+    }
+    input[type="text"] {
+      padding: 5px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 5px 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li.tarea {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Título de la aplicación -->
+  <h1>Gestión de Tareas</h1>
+
+  <!-- Imagen representativa -->
+  <img src="ward.png" alt="Imagen representativa" width="300">
+
+  <!-- Formulario para agregar nuevas tareas -->
+  <form>
+    <label for="nueva-tarea">Nueva Tarea:</label>
+    <input type="text" id="nueva-tarea" name="tarea" required>
+    <button type="submit">Agregar</button>
+  </form>
+
+  <!-- Lista de tareas -->
+  <h2>Lista de Tareas</h2>
+  <ul>
+    <li class="tarea">
+      <span>Tarea de ejemplo 1</span>
+      <button type="button">Completar</button>
+    </li>
+    <li class="tarea">
+      <span>Tarea de ejemplo 2</span>
+      <button type="button">Completar</button>
+    </li>
+    <!-- Se pueden agregar más elementos a la lista -->
+  </ul>
+</body>
+</html>
