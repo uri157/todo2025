@@ -2,73 +2,177 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Gestión de Tareas</title>
+  <title>Gestión de Tareas Pro</title>
+  <!-- Importa la fuente Roboto de Google -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
   <style>
-    /* Estilos básicos para mejorar la apariencia */
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #433e4c;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #483D8B, #6A5ACD);
+      color: #333;
+      padding: 20px;
     }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: rgba(255,255,255,0.95);
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
     h1, h2 {
-      color: #130606;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
     }
+
+    .img-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .img-container img {
+      width: 300px;
+      border-radius: 10px;
+      transition: transform 0.5s;
+    }
+
+    .img-container img:hover {
+      transform: rotate(5deg) scale(1.05);
+    }
+
     form {
-      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
     }
-    label {
-      margin-right: 10px;
-    }
+
     input[type="text"] {
-      padding: 5px;
+      padding: 10px;
       font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      width: 70%;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
+
+    input[type="text"]:focus {
+      border-color: #6A5ACD;
+      box-shadow: 0 0 10px rgba(106, 90, 205, 0.4);
+      outline: none;
+    }
+
     button {
-      padding: 5px 10px;
+      padding: 10px 20px;
+      margin-left: 10px;
       font-size: 1rem;
+      border: none;
+      background-color: #6A5ACD;
+      color: #fff;
+      border-radius: 5px;
       cursor: pointer;
+      transition: transform 0.3s, background-color 0.3s;
     }
+
+    button:hover {
+      background-color: #483D8B;
+      transform: scale(1.05);
+    }
+
     ul {
       list-style-type: none;
-      padding: 0;
     }
+
     li.tarea {
       background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 10px;
+      border-left: 5px solid #6A5ACD;
+      padding: 15px;
       margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-radius: 5px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    li.tarea.completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Título de la aplicación -->
-  <h1>Gestión de Tareas</h1>
+  <div class="container">
+    <h1>Gestión de Tareas Pro</h1>
+    
+    <div class="img-container">
+      <img src="ward.png" alt="Imagen representativa">
+    </div>
+    
+    <form id="task-form">
+      <input type="text" id="nueva-tarea" name="tarea" placeholder="Agrega una nueva tarea..." required>
+      <button type="submit">Agregar</button>
+    </form>
+    
+    <h2>Lista de Tareas</h2>
+    <ul id="task-list">
+      <li class="tarea">
+        <span>Tarea de ejemplo 1</span>
+        <button type="button" class="complete-btn">Completar</button>
+      </li>
+      <li class="tarea">
+        <span>Tarea de ejemplo 2</span>
+        <button type="button" class="complete-btn">Completar</button>
+      </li>
+    </ul>
+  </div>
+  
+  <script>
+    // Captura el envío del formulario para agregar nuevas tareas dinámicamente
+    document.getElementById('task-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const input = document.getElementById('nueva-tarea');
+      const taskText = input.value.trim();
+      if (taskText !== '') {
+        const li = document.createElement('li');
+        li.className = 'tarea';
+        li.innerHTML = `<span>${taskText}</span><button type="button" class="complete-btn">Completar</button>`;
+        document.getElementById('task-list').appendChild(li);
+        input.value = '';
 
-  <!-- Imagen representativa -->
-  <img src="ward.png" alt="Imagen representativa" width="300">
+        // Reinicia la animación para el nuevo elemento
+        li.style.animation = 'none';
+        setTimeout(() => {
+          li.style.animation = '';
+        }, 10);
+      }
+    });
 
-  <!-- Formulario para agregar nuevas tareas -->
-  <form>
-    <label for="nueva-tarea">Nueva Tarea:</label>
-    <input type="text" id="nueva-tarea" name="tarea" required>
-    <button type="submit">Agregar</button>
-  </form>
-
-  <!-- Lista de tareas -->
-  <h2>Lista de Tareas</h2>
-  <ul>
-    <li class="tarea">
-      <span>Tarea de ejemplo 1</span>
-      <button type="button">Completar</button>
-    </li>
-    <li class="tarea">
-      <span>Tarea de ejemplo 2</span>
-      <button type="button">Completar</button>
-    </li>
-    <!-- Se pueden agregar más elementos a la lista -->
-  </ul>
+    // Maneja la acción de completar la tarea
+    document.getElementById('task-list').addEventListener('click', function(e) {
+      if (e.target && e.target.classList.contains('complete-btn')) {
+        const li = e.target.parentElement;
+        li.classList.toggle('completed');
+      }
+    });
+  </script>
 </body>
 </html>
